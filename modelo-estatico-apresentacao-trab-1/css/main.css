@@ -1,0 +1,19 @@
+#logo {
+    background-color: aquamarine;
+    text-align: center;
+    color: black;
+    font-size: 20px;
+    font-family: Roboto;
+    font-weight: bold;
+}
+
+#menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.celula-menu {
+    padding: 10px;
+    margin: 10px;
+}
