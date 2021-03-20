@@ -1,0 +1,20 @@
+<div class="container">
+<nav class="navbar justify-content-between">
+<div  class="navbar-brand">
+    <a href="{% url 'home' %}"><button type="button" class="btn btn-outline-dark">
+        Inicio
+    </button></a>
+    <a href="/minha-conta"><button type="button" class="btn btn-outline-dark">
+        Minha Conta
+    </button> </a>
+</div>
+
+    <div class="alert-secondary ">Olá {{ user.username }}</div>
+    <a href="{% url 'logout' %}" class="my-2 my-sm-0">
+        Sair
+     </a>
+
+</nav>
+</div>
+
+<br>

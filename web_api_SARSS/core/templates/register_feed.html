@@ -1,0 +1,19 @@
+{% extends "estrutura/estrutura_interna.html" %}
+{% block content %}
+
+<div class="container">
+    <form method="POST">{% csrf_token %}
+
+         <div style="flex-direction: column">
+             {{ form }}
+         </div>
+
+        <div>
+            {% include "estrutura/botao_confirma_cancela.html" %}
+        </div>
+
+
+    </form>
+</div>
+
+{% endblock %}

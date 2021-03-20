@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-    <html lang="pt-br">
-        <head>
-            <meta charset="UTF-8">
-            <title>Login</title>
-        </head>
-        <body>
-            <div align="center">
+{% extends "estrutura/estrutura_externa.html" %}
+{% block content %}
+
+<div align="center">
 
                 <h2>Login:</h2>
                 <form action="submit" method="POST">{% csrf_token %}
@@ -33,5 +29,5 @@
                 <strong>*</strong> <i>{{ message }}</i>
                 {% endfor %}
             </div>
-        </body>
-    </html>
+
+{% endblock %}

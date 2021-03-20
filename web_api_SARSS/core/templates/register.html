@@ -1,0 +1,17 @@
+{% extends "estrutura/estrutura_externa.html" %}
+{% block content %}
+
+<div class="container">
+    <form method="POST">{% csrf_token %}
+
+         <div align="center">
+                {% include "estrutura/form_cadastro_usuario.html" %}
+
+            {% include "estrutura/botao_confirma_cancela.html" %}
+        </div>
+
+
+    </form>
+</div>
+
+{% endblock %}
