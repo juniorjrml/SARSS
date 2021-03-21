@@ -16,11 +16,12 @@ import dj_database_url
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-DATABASE_URL = os.environ['DATABASE_URL']
 SECRET_KEY = os.environ['SECRET_KEY']
+DATABASE_URL = os.environ['DATABASE_URL']
+
 DATABASE_USER = os.environ['DATABASE_USER']
 DATABASE_PASSWORD = os.environ['DATABASE_PASSWORD']
-DATABASE = os.environ['DATABASE_PASSWORD']
+DATABASE = os.environ['DATABASE']
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -87,7 +88,7 @@ WSGI_APPLICATION = 'web_api_SARSS.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgresql-animated-73812',
+        'NAME': DATABASE,
         'USER': DATABASE_USER,
         'PASSWORD': DATABASE_PASSWORD,
         'HOST': DATABASE_URL,
