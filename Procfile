@@ -1,1 +1,1 @@
-web: gunicorn sars.wsgi
+web: gunicorn web_api_SARSS.wsgi
