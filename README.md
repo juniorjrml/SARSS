@@ -8,6 +8,8 @@ Aplicação web desenvolvida com o *Django*  durante a matéria **Programação 
 
 Aplicação para gerir uma coleção de links RSS podendo se cadastrar no site(SARSS), permitir o usuario tornar sua coleção publica ou privada vizualizar as noticias de cada site, adicionar categorias para cada site cadastrado.
 
+usei o site heroku para hospedar o projeto 
+https://sarss.herokuapp.com/
 
 ------------
 **Rabiscos:**
