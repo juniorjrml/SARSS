@@ -3,3 +3,5 @@
 .idea
 *__pycache__*
 secret_key.txt
+/web_api_SARSS/usuario.txt
+/web_api_SARSS/senha.txt

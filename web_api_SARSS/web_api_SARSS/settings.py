@@ -77,10 +77,22 @@ WSGI_APPLICATION = 'web_api_SARSS.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+
+with open('usuario.txt') as usuario:
+    usuario = usuario.readline()
+with open('senha.txt') as senha:
+    senha = senha.readline()
+
+print(usuario,senha)
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'SARSS',
+        'USER': usuario,
+        'PASSWORD': senha,
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 

@@ -14,7 +14,6 @@ from django.contrib import messages
 def buscar_feeds_usuario(user_id):
     usuario = User.objects.get(id=user_id)
     feeds = Feed.objects.filter(usuario=usuario)
-    print(feeds)
     return feeds
 
 
