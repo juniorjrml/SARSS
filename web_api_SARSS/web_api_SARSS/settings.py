@@ -9,8 +9,18 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-
+import os
 from pathlib import Path
+import dj_database_url
+
+
+# SECURITY WARNING: keep the secret key used in production secret!
+
+DATABASE_URL = os.environ['DATABASE_URL']
+SECRET_KEY = os.environ['SECRET_KEY']
+DATABASE_USER = os.environ['DATABASE_USER']
+DATABASE_PASSWORD = os.environ['DATABASE_PASSWORD']
+DATABASE = os.environ['DATABASE_PASSWORD']
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -19,15 +29,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = ''
-with open('secret_key.txt') as senha:
-    SECRET_KEY = senha.readline()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['sarss.herokuapp.com']
 
 
 # Application definition
@@ -78,24 +84,21 @@ WSGI_APPLICATION = 'web_api_SARSS.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 
-with open('usuario.txt') as usuario:
-    usuario = usuario.readline()
-with open('senha.txt') as senha:
-    senha = senha.readline()
-
-print(usuario,senha)
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'SARSS',
-        'USER': usuario,
-        'PASSWORD': senha,
-        'HOST': 'localhost',
+        'NAME': 'postgresql-animated-73812',
+        'USER': DATABASE_USER,
+        'PASSWORD': DATABASE_PASSWORD,
+        'HOST': DATABASE_URL,
         'PORT': '5432',
+        'CONN_MAX_AGE': 500,
     }
 }
 
+DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+
+#DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -134,3 +137,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
