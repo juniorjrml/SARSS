@@ -15,7 +15,7 @@ alguns recursos para ajudar no desenvolvimento e produção da aplicação
 
 estruturei minhas ideias iniciais e requisitos necessarios em um diagrama sem padrão aparente
 
-![diagrama](/SARSS/SARSS auxili.jpeg)
+![diagrama](/SARSS/SARSS%20auxili.jpeg)
 
 
 **Telas:**
