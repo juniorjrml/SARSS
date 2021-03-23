@@ -13,4 +13,5 @@ urlpatterns = [
     path('feed/register', views.resgistra_feed, name='register_feed'),
     path('feed/delete/<int:id_feed>', views.delete_feed, name='delete_feed'),
     path('feed/visualizar/<int:id_feed>', views.visualizar_feed, name='visualiza_feed'),
+    path('feed/<int:id_user>', views.visualizar_feed, name='visualiza_feed'),
 ]

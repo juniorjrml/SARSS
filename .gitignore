@@ -8,3 +8,5 @@ secret_key.txt
 /.env
 /senha.txt
 /usuario.txt
+/removevarambient.sh
+/varambient.sh

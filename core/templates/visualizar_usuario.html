@@ -1,0 +1,9 @@
+{% if var1 %}
+{% extends "estrutura/estrutura_interna.html" %}
+{% else %}
+{% extends "estrutura/estrutura_externa.html" %}
+{% endif %}
+{% block content %}
+
+{% include "estrutura/estrutura_cards.html" %}
+{% endblock %}

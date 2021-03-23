@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 
 class Feed(models.Model):
     title = models.CharField(max_length=1000)
+    privado = models.BooleanField(auto_created=True)
     link = models.TextField()
     subtitle = models.TextField()
     data_criacao = models.DateTimeField(auto_now=True)

@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
+#from google.oauth2 import id_token
+#from google.auth.transport import requests
 
 from .construtor_feed_rss import monta_feed,extrai_noticias
 from .form_feed import FeedForm
@@ -78,6 +80,22 @@ def visualizar_feed(request, id_feed):
         raise Http404()
 
     return render(request, 'visualizar_noticias.html', dados)
+
+@login_required(login_url='/login/')
+def visualizar_user(request, id_user):
+    usuario = User.objects.get(id=id_user)
+    dados = {}
+    try:
+        if request.user.id == id_user:
+            feeds = Feed.objects.filter(id=id_user)
+        else:
+            feeds = Feed.objects.filter(id=id_user).filter(privado=False)
+        dados["feeds"] = feeds
+
+    except:
+        raise Http404()
+
+    return render(request, 'visualizar_usuario.html', dados)
 
 
 def registra_usuario(request):
