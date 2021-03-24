@@ -10,6 +10,7 @@ from .form_feed import FeedForm
 from .models import User
 from .models import Feed
 from django.contrib import messages
+
 ["http://g1.globo.com/dynamo/educacao/rss2.xml", "http://g1.globo.com/dynamo/loterias/rss2.xml", "http://g1.globo.com/dynamo/politica/mensalao/rss2.xml"]
 
 
@@ -25,6 +26,7 @@ def home(request):
     dados["feeds"] = buscar_feeds_usuario(request.user.id)
 
     return render(request, 'home.html', dados)
+
 
 @login_required(login_url='/login/')
 def resgistra_feed(request):
@@ -81,15 +83,16 @@ def visualizar_feed(request, id_feed):
 
     return render(request, 'visualizar_noticias.html', dados)
 
+
 @login_required(login_url='/login/')
-def visualizar_user(request, id_user):
-    usuario = User.objects.get(id=id_user)
+def visualizar_user(request, nickname):
+    usuario = User.objects.filter(nickname).first()
     dados = {}
     try:
-        if request.user.id == id_user:
-            feeds = Feed.objects.filter(id=id_user)
+        if request.user.id == usuario.id:
+            feeds = Feed.objects.filter(id=usuario.id)
         else:
-            feeds = Feed.objects.filter(id=id_user).filter(privado=False)
+            feeds = Feed.objects.filter(id=usuario.id).filter(privado=False)
         dados["feeds"] = feeds
 
     except:
@@ -111,6 +114,7 @@ def registra_usuario(request):
     else:
         return render(request, 'register.html', dados)
 
+
 def submit_login(request):
     if request.POST:
         nome = request.POST.get('usuario')
@@ -122,8 +126,10 @@ def submit_login(request):
             messages.error(request, "Usuario ou Senha Invalidos")  # retorna em caso da autenticação falhar
     return redirect('/')
 
+
 def login_usuario(request):
     return render(request, 'login.html')
+
 
 def logout_user(request):
     logout(request)

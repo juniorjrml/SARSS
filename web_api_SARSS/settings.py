@@ -34,7 +34,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['sarss.herokuapp.com']
+ALLOWED_HOSTS = ['sarss.herokuapp.com', "localhost"]
 
 
 # Application definition
@@ -97,7 +97,7 @@ DATABASES = {
     }
 }
 
-DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+DATABASES['default'] = dj_database_url.config(conn_max_age=500, ssl_require=True)
 
 #DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
