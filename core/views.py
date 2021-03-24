@@ -86,6 +86,7 @@ def visualizar_feed(request, id_feed):
 
 @login_required(login_url='/login/')
 def visualizar_user(request, nickname):
+    print(nickname)
     usuario = User.objects.all().filter(username=nickname).first()
     if usuario:
         pass
