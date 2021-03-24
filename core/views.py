@@ -86,23 +86,19 @@ def visualizar_feed(request, id_feed):
 
 @login_required(login_url='/login/')
 def visualizar_user(request, nickname):
-    print(nickname)
     usuario = User.objects.all().filter(username=nickname).first()
+    dados = {}
     if usuario:
-        pass
+        try:
+            if request.user.id == usuario.id:
+                feeds = Feed.objects.filter(id=usuario.id)
+            else:
+                feeds = Feed.objects.filter(id=usuario.id).filter(privado=False)
+            dados["feeds"] = feeds
+        except:
+            raise Http404()
     else:
         redirect('/')
-    dados = {}
-    try:
-        if request.user.id == usuario.id:
-            feeds = Feed.objects.filter(id=usuario.id)
-        else:
-            feeds = Feed.objects.filter(id=usuario.id).filter(privado=False)
-        dados["feeds"] = feeds
-
-    except:
-        raise Http404()
-
     return render(request, 'visualizar_usuario.html', dados)
 
 
