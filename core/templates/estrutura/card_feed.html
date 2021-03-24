@@ -3,7 +3,10 @@
         {% if feed.privado %}
             privado
         {% else %}
-            publico
+            <button type="button" class="btn btn-primary">
+                Publico <span class="badge bg-secondary">Privado</span>
+                <span class="visually-hidden">unread messages</span>
+            </button>
         {% endif %}
       <div class="card-body">
         <h5 class="card-title">{{ feed.title }}</h5>
