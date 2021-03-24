@@ -1,10 +1,5 @@
-{% if user.is_authenticated %}
-    {% extends "estrutura/estrutura_interna.html" %}
-{% endif %}
+{% extends "estrutura/estrutura_interna.html" %}
 
-{% if not user.is_authenticated %}
-{% extends "estrutura/estrutura_externa.html" %}
-{% endif %}
 
 {% block content %}
 
