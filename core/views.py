@@ -66,6 +66,28 @@ def delete_feed(request, id_feed):
 
     return redirect('/')
 
+@login_required(login_url='/login/')
+def feed_privado(request, id_feed):
+    """
+
+    :param request:
+    :param id_feed:
+    :return: inverte o valor contido no feed.privado
+    """
+    usuario = User.objects.get(id=request.user.id)
+    try:
+        feed = Feed.objects.get(id=id_feed)
+        if usuario == feed.usuario:
+            feed.privado = not feed.privado
+            feed.save()
+        else:
+            raise Http404()
+
+    except:
+        raise Http404()
+
+    return redirect('/')
+
 
 @login_required(login_url='/login/')
 def visualizar_feed(request, id_feed):
