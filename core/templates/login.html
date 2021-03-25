@@ -15,9 +15,12 @@
         </div>
     </div>
 
-    <button type="submit" class="btn btn-dark">Entrar</button>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <button type="submit" class="btn btn-dark" style="width: 15rem;">Entrar</button>
+    </div>
 </form>
-<div class="row g-3">
+
+<div class="row g-3 alert alert-danger" role="alert">
     {% for message in messages %}
     <strong>*</strong> <i>{{ message }}</i>
     {% endfor %}
