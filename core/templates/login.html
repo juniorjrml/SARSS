@@ -1,6 +1,6 @@
 {% extends "estrutura/estrutura_externa.html" %}
 {% block content %}
-
+<div class="card" style="width: 18rem;">
 <form action="submit" method="POST">{% csrf_token %}
     <div class="row mb-3">
         <label for="usuario" class="col-sm-2 col-form-label">Usuario</label>
@@ -22,5 +22,5 @@
     <strong>*</strong> <i>{{ message }}</i>
     {% endfor %}
 </div>
-
+</div>
 {% endblock %}
