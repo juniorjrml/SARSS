@@ -1,8 +1,8 @@
 {% extends "estrutura/estrutura_externa.html" %}
 {% block content %}
 
-<div>
-    <div class="card text-white bg-secondary" style="width: 25rem;">
+<div align="center">
+    <div class="card text-white bg-secondary" style="width: 18rem;">
         <h5 class="card-title">Login:</h5>
 
         <div class="card-body">
@@ -28,7 +28,6 @@
             </table>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                 <button type="submit" class="btn btn-dark">Entrar</button>
-                <button type="reset" class="btn btn-danger">Limpar</button>
             </div>
             </form>
             {% for message in messages %}
