@@ -1,14 +1,9 @@
 {% extends "estrutura/estrutura_externa.html" %}
 {% block content %}
-<div class="col-sm-6" title="">
-    <div class="card text-white bg-secondary mb-3">
-        <h5 class="card-title btn">Login:
-            <span class="badge bg-dark"></span>
-            <span class="badge bg-dark">
-                <a href="/feed/altera_privacidade/{{ feed.id }}">Trocar</a>
-            </span>
-        </h5>
 
+<div class="col-sm-6">
+    <div class="card text-white bg-secondary justify-content-md-end">
+        <h5 class="card-title btn">Login:</h5>
 
         <div class="card-body">
             <p class="card-text">
@@ -39,9 +34,7 @@
             {% for message in messages %}
             <strong>*</strong> <i>{{ message }}</i>
             {% endfor %}
-
             </p>
-
         </div>
     </div>
 </div>
