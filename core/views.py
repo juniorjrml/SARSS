@@ -43,7 +43,8 @@ def resgistra_feed(request):
             title=feed_retornado['title'],
             link=link,
             subtitle=feed_retornado['subtitle'],
-            usuario=user
+            usuario=user,
+            privado=True
         )
 
         return redirect("/")
