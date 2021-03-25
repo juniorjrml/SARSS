@@ -1,41 +1,39 @@
 {% extends "estrutura/estrutura_externa.html" %}
 {% block content %}
 
-<div align="center">
-    <div class="card text-white bg-secondary" style="width: 18rem;">
-        <h5 class="card-title">Login:</h5>
+<form action="submit" method="POST">{% csrf_token %}
 
-        <div class="card-body">
-            <p class="card-text">
-            <form action="submit" method="POST">{% csrf_token %}
-            <table>
-                <tr>
-                    <td>
-                        <label>Usuario</label>
-                    </td>
-                    <td>
-                        <input type="text" name="usuario">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label>Senha</label>
-                    </td>
-                    <td>
-                        <input type="password" name="senha">
-                    </td>
-                </tr>
-            </table>
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <button type="submit" class="btn btn-dark">Entrar</button>
-            </div>
-            </form>
-            {% for message in messages %}
-            <strong>*</strong> <i>{{ message }}</i>
-            {% endfor %}
-            </p>
+<div class="row g-3">
+    <div class="col">
+        <label class="form-label">Usuario</label>
+    </div>
+    <div class="col">
+        <input type="text" name="usuario" class="form-control" placeholder="Usuario">
+    </div>
+</div>
+
+<div class="row g-3">
+    <div class="col">
+        <label class="form-label">Senha</label>
+    </div>
+    <div class="col">
+        <input type="password" name="senha" class="form-control" placeholder="Senha">
+    </div>
+</div>
+
+    <div class="row g-3">
+        <div class="col">
+
+        </div>
+        <div class="col">
+            <button type="submit" class="btn btn-dark">Entrar</button>
         </div>
     </div>
+</form>
+<div class="row g-3">
+    {% for message in messages %}
+    <strong>*</strong> <i>{{ message }}</i>
+    {% endfor %}
 </div>
 
 {% endblock %}
