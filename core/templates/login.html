@@ -20,10 +20,7 @@
     </div>
 </form>
 
-<div class="row g-3 alert alert-danger" role="alert">
-    {% for message in messages %}
-    <strong>*</strong> <i>{{ message }}</i>
-    {% endfor %}
-</div>
+    {% include "estrutura/alerta_erro.html" %}
+
 </div>
 {% endblock %}
