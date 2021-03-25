@@ -31,10 +31,10 @@
                     </td>
                 </tr>
             </table>
-
-            <button type="submit" class="btn btn-dark">Entrar</button>
-            <button type="reset" class="btn btn-danger">Remover</button>
-
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button type="submit" class="btn btn-dark">Entrar</button>
+                <button type="reset" class="btn btn-danger">Limpar</button>
+            </div>
             </form>
             {% for message in messages %}
             <strong>*</strong> <i>{{ message }}</i>
