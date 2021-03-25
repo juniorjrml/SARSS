@@ -1,13 +1,14 @@
 <div class="col-sm-6" title="{{ feed.link }}">
     <div class="card text-white bg-secondary mb-3">
-        <h5 class="card-title btn">{{ feed.title }}<span class="badge bg-secondary"></h5>
+        <h5 class="card-title btn">{{ feed.title }}
+            <span class="badge bg-secondary">
 
         {% if feed.privado %}
             Privado
         {% else %}
             Publico
         {% endif %}
-                 </span>
+                 </span></h5>
             <span class="visually-hidden"><a href="/feed/altera_privacidade/{{ feed.id }}">Trocar</a> </span>
 
       <div class="card-body">
