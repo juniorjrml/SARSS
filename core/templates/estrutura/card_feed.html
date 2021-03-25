@@ -1,15 +1,16 @@
 <div class="col-sm-6" title="{{ feed.link }}">
     <div class="card text-white bg-secondary mb-3">
-        {% if feed.privado %}
-            privado
-        {% else %}
-            <button type="button" class="btn btn-primary">
-                Publico <span class="badge bg-secondary">Privado</span>
-                <span class="visually-hidden">unread messages</span>
-            </button>
-        {% endif %}
-      <div class="card-body">
         <h5 class="card-title">{{ feed.title }}</h5>
+                 <span class="badge bg-secondary">
+        {% if feed.privado %}
+            Privado
+        {% else %}
+            Publico
+        {% endif %}
+                 </span>
+            <span class="visually-hidden"></span>
+
+      <div class="card-body">
         <p class="card-text">{{ feed.subtitle }}</p>
         <a href="/feed/visualizar/{{ feed.id }}" class="btn btn-dark">Vizualizar</a> <a href="feed/delete/{{ feed.id }}" class="btn btn-danger">Remover</a>
       </div>
