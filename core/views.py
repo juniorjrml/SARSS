@@ -113,9 +113,9 @@ def visualizar_user(request, nickname):
     if usuario:
         try:
             if request.user.id == usuario.id:
-                feeds = Feed.objects.filter(id=usuario.id)
+                feeds = Feed.objects.all().filter(id=usuario.id)
             else:
-                feeds = Feed.objects.filter(id=usuario.id).filter(privado=False)
+                feeds = Feed.objects.all().filter(id=usuario.id).filter(privado=False)
             dados["feeds"] = feeds
         except:
             raise Http404()
