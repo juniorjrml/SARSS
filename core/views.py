@@ -11,20 +11,32 @@ from .models import User
 from .models import Feed
 from django.contrib import messages
 
-["http://g1.globo.com/dynamo/educacao/rss2.xml", "http://g1.globo.com/dynamo/loterias/rss2.xml", "http://g1.globo.com/dynamo/politica/mensalao/rss2.xml"]
-
 def busca_usuario(user_id):
-    try:
-        usuario = User.objects.get(id=user_id)
+    usuario = User.objects.all().get(id=user_id)
+    if usuario != User.objects.none():
+        return usuario
+    else:
+        return None
 
-    except:
-        pass
+def busca_usuario_nome(user_name):
+    usuario = User.objects.all().filter(username=user_name).first()
+    if usuario != User.objects.none():
+        return usuario
+    else:
+        return None
 
 
-def buscar_feeds_usuario(user_id):
-    usuario = User.objects.get(id=user_id)
-    feeds = Feed.objects.all().filter(usuario=usuario)
-    return feeds
+def buscar_feeds_usuario(user_id, autorizado):
+    usuario = busca_usuario(user_id)
+    if usuario:
+        if autorizado:
+            feeds = Feed.objects.all().filter(usuario=usuario.id)
+        else:
+            feeds = Feed.objects.all().filter(usuario=usuario.id).filter(privado=False)
+        return feeds
+
+    else:
+        return None
 
 
 @login_required(login_url='/login/')
@@ -116,19 +128,21 @@ def visualizar_feed(request, id_feed):
 
 @login_required(login_url='/login/')
 def visualizar_user(request, nickname):
-    usuario = User.objects.all().filter(username=nickname).first()
+    usuario = busca_usuario_nome(nickname)
     dados = {}
     if usuario:
-        try:
-            if request.user.id == usuario.id:
-                feeds = Feed.objects.all().filter(id=usuario.id)
-            else:
-                feeds = Feed.objects.all().filter(id=usuario.id).filter(privado=False)
+        # caso o usuario exista
+        autorizado = request.user.id == usuario.id
+        feeds = buscar_feeds_usuario(request.user.id, autorizado)
+        if feeds:
             dados["feeds"] = feeds
-        except:
-            raise Http404()
+        else:
+            # Caso nao tenha feed
+            raise Http404
+
+
     else:
-        redirect('/')
+        raise Http404
     return render(request, 'visualizar_usuario.html', dados)
 
 
