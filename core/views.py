@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, Http404, HttpResponseForbidden
+from django.http import HttpResponse, Http404, HttpResponseNotAllowed
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
 #from google.oauth2 import id_token
@@ -101,10 +101,10 @@ def feed_privado(request, id_feed):
             feed.privado = not feed.privado
             feed.save()
         else:
-            raise HttpResponseForbidden()
+            raise HttpResponseNotAllowed()
 
-    except:
-        raise Http404()
+    except HttpResponseNotAllowed:
+        return redirect('')
 
     return redirect('/')
 
