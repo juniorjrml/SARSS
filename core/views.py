@@ -96,9 +96,12 @@ def feed_privado(request, id_feed):
     """
     usuario = request.user
     feed = Feed.objects.get(id=id_feed)
-    if usuario == feed.usuario:
-        feed.privado = not feed.privado
-        feed.save()
+    try:
+        if usuario == feed.usuario:
+            feed.privado = not feed.privado
+            feed.save()
+    except:
+        pass
 
     return redirect('')
 
