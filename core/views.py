@@ -104,7 +104,7 @@ def feed_privado(request, id_feed):
     except:
         pass
 
-    return redirect('')
+    return redirect('/')
 
 
 @login_required(login_url='/login/')
