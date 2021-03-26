@@ -95,8 +95,9 @@ def feed_privado(request, id_feed):
     :return: inverte o valor contido no feed.privado se o request.user for o dono
     """
     usuario = request.user
-    feed = Feed.objects.get(id=id_feed)
+
     try:
+        feed = Feed.objects.all().get(id=id_feed)
         if usuario == feed.usuario:
             feed.privado = not feed.privado
             feed.save()
