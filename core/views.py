@@ -101,7 +101,7 @@ def feed_privado(request, id_feed):
             feed.privado = not feed.privado
             feed.save()
         else:
-            raise HttpResponseNotAllowed()
+            raise HttpResponseNotAllowed
 
     except HttpResponseNotAllowed:
         return redirect('')
