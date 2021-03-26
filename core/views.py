@@ -13,10 +13,17 @@ from django.contrib import messages
 
 ["http://g1.globo.com/dynamo/educacao/rss2.xml", "http://g1.globo.com/dynamo/loterias/rss2.xml", "http://g1.globo.com/dynamo/politica/mensalao/rss2.xml"]
 
+def busca_usuario(user_id):
+    try:
+        usuario = User.objects.get(id=user_id)
+
+    except:
+        pass
+
 
 def buscar_feeds_usuario(user_id):
     usuario = User.objects.get(id=user_id)
-    feeds = Feed.objects.filter(usuario=usuario)
+    feeds = Feed.objects.all().filter(usuario=usuario)
     return feeds
 
 
