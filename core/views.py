@@ -133,7 +133,7 @@ def visualizar_user(request, nickname):
     if usuario:
         # caso o usuario exista
         autorizado = request.user.id == usuario.id
-        feeds = buscar_feeds_usuario(request.user.id, autorizado=autorizado)
+        feeds = buscar_feeds_usuario(usuario.id, autorizado=autorizado)
         if feeds:
             dados["feeds"] = feeds
         else:
