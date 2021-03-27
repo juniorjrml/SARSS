@@ -18,6 +18,13 @@ def busca_usuario(user_id):
     else:
         return None
 
+def busca_feed(feed_id):
+    feed = Feed.objects.all().get(id=feed_id)
+    if feed != Feed.objects.none():
+        return feed
+    else:
+        return None
+
 def busca_usuario_nome(user_name):
     usuario = User.objects.all().filter(username=user_name).first()
     if usuario != User.objects.none():
@@ -109,17 +116,14 @@ def feed_privado(request, id_feed):
 
 @login_required(login_url='/login/')
 def visualizar_feed(request, id_feed):
-    usuario = User.objects.get(id=request.user.id)
+    usuario = request.user
     dados = {}
-    try:
-        feed = Feed.objects.get(id=id_feed)
+    feed = busca_feed(id_feed)
+    if feed:
         if usuario == feed.usuario:
             dados['noticias'] = extrai_noticias(feed.link)
         else:
-            raise Http404()
-
-    except:
-        raise Http404()
+            redirect('www.google.com')
 
     return render(request, 'visualizar_noticias.html', dados)
 
