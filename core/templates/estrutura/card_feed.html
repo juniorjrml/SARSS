@@ -10,7 +10,7 @@
         {% endif %}
                  </span>
             <span class="badge bg-dark">
-                <a href="/feed/altera_privacidade/{{ feed.id }}">Trocar</a>
+                <a href="/feed/altera_privacidade/{{ feed.id }}"{% if feed.user != user %} disabled {% endif %}>Trocar</a>
             </span>
         </h5>
 
