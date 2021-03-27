@@ -12,8 +12,6 @@
                 <a href="/feed/altera_privacidade/{{ feed.id }}">
                      {% if feed.usuario.username != user.username %}
                         <button class="btn bg-dark badge" disabled>Trocar</button>
-                        1{{ feed.usuario.username }}
-                        2{{ user.username }}
                     {% else %}
                         <button class="btn bg-dark badge">Trocar</button>
                     {% endif %}
