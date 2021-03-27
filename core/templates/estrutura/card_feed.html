@@ -9,11 +9,11 @@
             Publico
         {% endif %}
                  </span>
-                <a href="/feed/altera_privacidade/{{ feed.id }}">
-                     {% if feed.usuario.username != user.username %}
-                        <button class="btn bg-dark badge" disabled>Trocar</button>
-                    {% endif %}
-                </a>
+
+            {% if feed.usuario.username == user.username %}
+                <a href="/feed/altera_privacidade/{{ feed.id }}"><button class="btn bg-dark badge">Trocar</button></a>
+            {% endif %}
+
 
         </h5>
 
@@ -22,7 +22,7 @@
         <p class="card-text">{{ feed.subtitle }}</p>
         <a href="/feed/visualizar/{{ feed.id }}" class="btn btn-dark">Vizualizar</a>
 
-          {% if feed.usuario.username != user.username %}
+          {% if feed.usuario.username == user.username %}
                 <a href="feed/delete/{{ feed.id }}" class="btn btn-danger">Remover</a>
           {% endif %}
 
