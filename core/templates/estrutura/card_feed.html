@@ -9,10 +9,13 @@
             Publico
         {% endif %}
                  </span>
-                <a href="/feed/altera_privacidade/{{ feed.id }}"><button class="btn bg-dark badge"
-                                                                         {% if feed.user != user %}
-                                                                         disabled
-                                                                         {% endif %}>Trocar</button></a>
+                <a href="/feed/altera_privacidade/{{ feed.id }}">
+                     {% if feed.user != user %}
+                        <button class="btn bg-dark badge" disabled>Trocar</button>
+                    {% else %}
+                        <button class="btn bg-dark badge">Trocar</button>
+                    {% endif %}
+                </a>
 
         </h5>
 
