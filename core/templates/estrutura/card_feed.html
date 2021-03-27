@@ -1,7 +1,7 @@
 <div class="col-sm-6" title="{{ feed.link }}">
     <div class="card text-white bg-secondary mb-3">
-        <h5 class="card-title btn">{{ feed.title }}
-            <span class="badge bg-dark">
+        <h5 class="card-title" align="center">{{ feed.title }}
+            <span class="badge bg-secondary">
 
         {% if feed.privado %}
             Privado
@@ -11,16 +11,16 @@
                  </span>
 
             {% if feed.usuario.username == user.username %}
-                <a href="/feed/altera_privacidade/{{ feed.id }}"><button class="btn bg-dark badge">Trocar</button></a>
+                <a href="/feed/altera_privacidade/{{ feed.id }}" class="btn bg-dark badge">Trocar</a>
             {% endif %}
 
 
         </h5>
 
 
-      <div class="card-body">
+      <div class="card-body bg-dark">
         <p class="card-text">{{ feed.subtitle }}</p>
-        <a href="/feed/visualizar/{{ feed.id }}" class="btn btn-dark">Vizualizar</a>
+        <a href="/feed/visualizar/{{ feed.id }}" class="btn btn-secondary">Vizualizar</a>
 
           {% if feed.usuario.username == user.username %}
                 <a href="feed/delete/{{ feed.id }}" class="btn btn-danger">Remover</a>
