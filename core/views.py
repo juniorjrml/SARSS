@@ -123,7 +123,8 @@ def visualizar_feed(request, id_feed):
         if usuario == feed.usuario:
             dados['noticias'] = extrai_noticias(feed.link)
         else:
-            redirect('www.google.com')
+            if not feed.privado:
+                dados['noticias'] = extrai_noticias(feed.link)
 
     return render(request, 'visualizar_noticias.html', dados)
 
