@@ -120,11 +120,9 @@ def visualizar_feed(request, id_feed):
     dados = {}
     feed = busca_feed(id_feed)
     if feed:
-        if usuario == feed.usuario:
+        if usuario == feed.usuario or not feed.privado:
             dados['noticias'] = extrai_noticias(feed.link)
-        else:
-            if not feed.privado:
-                dados['noticias'] = extrai_noticias(feed.link)
+            dados['feed'] = feed
 
     return render(request, 'visualizar_noticias.html', dados)
 

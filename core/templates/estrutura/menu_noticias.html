@@ -1,0 +1,10 @@
+{% load static %}
+    <nav class="navbar navbar-secondary bg-secondary justify-content-between">
+      <div class="navbar-brand" href="#">
+          {{ feed.title }}:
+      </div>
+        <span class="badge bg-dark">
+                <a href="{% url 'register_feed' %}">Adicionar Tag</a>
+        </span>
+    </nav>
+    <br>

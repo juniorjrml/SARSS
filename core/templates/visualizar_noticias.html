@@ -1,5 +1,6 @@
 {% extends "estrutura/estrutura_interna.html" %}
 {% block content %}
+{% include "estrutura/menu_noticias.html" %}
 <div class="row">
     {% for noticia in noticias %}
         {% include "estrutura/card_noticia.html" %}
