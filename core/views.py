@@ -83,6 +83,7 @@ def resgistra_tag(request):
     user = request.user
     form = tagForm()
     dados = {'form': form}
+    dados['tags'] = Tag.objects.all()
     if user.is_staff:
         if request.GET:
             return render(request, 'register_tag.html', dados)
