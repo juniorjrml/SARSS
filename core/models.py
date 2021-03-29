@@ -3,6 +3,11 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
+class Tag(models.Model):
+    title = models.CharField(max_length=1000)
+    class Meta:
+        db_table = 'tags'  # nome da tabela no BD
+
 class Feed(models.Model):
     title = models.CharField(max_length=1000)
     privado = models.BooleanField(auto_created=True)
