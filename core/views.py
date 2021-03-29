@@ -89,7 +89,7 @@ def resgistra_tag(request):
             return render(request, 'register_tag.html', dados)
         elif request.POST:
             title = request.POST.get('title')
-            Tag.objects.create(title=title)
+            Tag.objects.create(title=title).save()
 
             return redirect("/")
         else:
