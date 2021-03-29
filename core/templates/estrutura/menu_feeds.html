@@ -3,8 +3,15 @@
       <div class="navbar-brand" href="#">
         Seus Canais:
       </div>
-        <span class="badge bg-dark">
-                <a href="{% url 'register_feed' %}">Adicionar Feed</a>
-        </span>
+        <div>
+            {% if user.is_staff %}
+                <span class="badge bg-dark">
+                        <a href="{% url 'register_tag' %}">Criar Tag</a>
+                </span>
+            {% endif %}
+            <span class="badge bg-dark">
+                    <a href="{% url 'register_feed' %}">Adicionar Feed</a>
+            </span>
+        </div>
     </nav>
     <br>

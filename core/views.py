@@ -7,7 +7,8 @@ from django.contrib.auth import login, logout, authenticate
 
 from .construtor_feed_rss import monta_feed,extrai_noticias
 from .form_feed import FeedForm
-from .models import User
+from .form_tag import tagForm
+from .models import User, Tag
 from .models import Feed
 from django.contrib import messages
 
@@ -76,6 +77,23 @@ def resgistra_feed(request):
         return redirect("/")
     else:
         return render(request, 'register_feed.html', dados)
+
+@login_required(login_url='/login/')
+def resgistra_tag(request):
+    user = request.user
+    form = tagForm()
+    dados = {'form': form}
+    if user.is_staff():
+        if request.GET:
+            return render(request, 'register_tag.html', dados)
+        elif request.POST:
+            title = request.POST.get('title')
+            Tag.objects.create(title=title)
+
+            return redirect("/")
+        else:
+            return render(request, 'register_feed.html', dados)
+    return redirect("/")
 
 
 @login_required(login_url='/login/')

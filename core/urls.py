@@ -15,4 +15,5 @@ urlpatterns = [
     path('feed/altera_privacidade/<int:id_feed>', views.feed_privado, name='flip_feed_privado'),
     path('feed/visualizar/<int:id_feed>', views.visualizar_feed, name='visualiza_feed'),
     path('feed/<nickname>', views.visualizar_user, name='visualiza_feed'),
+    path('tag/register', views.resgistra_tag, name='register_tag'),
 ]
