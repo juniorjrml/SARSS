@@ -8,6 +8,9 @@ class Tag(models.Model):
     class Meta:
         db_table = 'tags'  # nome da tabela no BD
 
+    def __str__(self):
+            return self.title
+
 class Feed(models.Model):
     title = models.CharField(max_length=1000)
     privado = models.BooleanField(auto_created=True)
@@ -15,6 +18,7 @@ class Feed(models.Model):
     subtitle = models.TextField()
     data_criacao = models.DateTimeField(auto_now=True)
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    tags = models.ManyToManyField(Tag)
 
     class Meta:
         db_table = 'feed'  # nome da tabela no BD
