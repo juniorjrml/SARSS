@@ -10,5 +10,5 @@ class tagForm(forms.ModelForm):
         model = Feed
         fields = ('title',)
         widgets = {
-            'link': TextInput(attrs={'width': 300, 'class': 'form-control'}),
+            'link': TextInput(attrs={'width': 300, 'class': "form-control", "placeholder": "Digite o Nome da Tag"}),
         }
