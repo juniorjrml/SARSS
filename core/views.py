@@ -94,7 +94,7 @@ def resgistra_tag(request):
             return redirect("/")
         else:
             return render(request, 'register_feed.html', dados)
-    return redirect("/")
+    return redirect("registra")
 
 
 @login_required(login_url='/login/')
