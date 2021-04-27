@@ -1,31 +1,33 @@
 <div class="col-sm-6" title="{{ feed.link }}">
     <div class="card text-white bg-secondary mb-3">
         <h5 class="card-title" align="center">{{ feed.title }}
-            <span class="badge bg-secondary">
-
-        {% if feed.privado %}
-            Privado
-        {% else %}
-            Publico
-        {% endif %}
-                 </span>
+            <span class="badge bg-secondary text-dark">
+                {% if feed.privado %}
+                    Privado
+                {% else %}
+                    Publico
+                {% endif %}
+            </span>
 
             {% if feed.usuario.username == user.username %}
-                <a href="/feed/altera_privacidade/{{ feed.id }}" class="btn bg-dark badge">Trocar</a>
+                <a href="/feed/altera_privacidade/{{ feed.id }}" class="bg-info badge text-dark">Trocar</a><br>
             {% endif %}
-
 
         </h5>
 
 
-      <div class="card-body bg-dark">
-        <p class="card-text">{{ feed.subtitle }}</p>
-        <a href="/feed/visualizar/{{ feed.id }}" class="btn btn-secondary">Vizualizar</a>
+        <div class="card-body bg-dark">
+            <p class="card-text">{{ feed.subtitle }}</p>
+            <a href="/feed/visualizar/{{ feed.id }}" class="btn btn-secondary">Vizualizar</a>
 
-          {% if feed.usuario.username == user.username %}
-                <a href="feed/delete/{{ feed.id }}" class="btn btn-danger">Remover</a>
-          {% endif %}
+            <a class="btn btn-secondary" data-toggle="modal" data-target="#ModalCenter{{ feed.id }}">Marcações</a>
 
-      </div>
+            {% if feed.usuario.username == user.username %}
+            <a href="feed/delete/{{ feed.id }}" class="btn btn-danger">Remover</a>
+            {% endif %}
+
+        </div>
     </div>
 </div>
+
+{% include "estrutura/estrutura_tags.html" %}

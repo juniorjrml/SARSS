@@ -1,1 +1,23 @@
-<a href="" class="btn bg-dark badge" disabled>tag.title</a>
+<div>
+    <a href="" class="btn bg-dark badge disabled" >{{ tag.title }}</a>
+    {% if feed %}
+        {% if user.is_staff %}
+            <a href="/feed/tag/editar/{{ tag.id }}" >
+                <span class="btn btn-secondary badge">Editar Tag</span>
+            </a>
+            <a href="/feed/tag/delete/{{ tag.id }}"  title="Deleta a Tag do Sistema">
+                <span class="btn btn-danger badge">Deletar Tag</span>
+            </a>
+        {% endif %}
+        {% if tag in feed.tags.all %}
+            <a href="/feed/remover_vinculo_tag/{{ feed.id }}/{{ tag.id }}"  title="Remove a tag do feed">
+                <span class="btn btn-danger badge">Remover</span>
+            </a>
+        {% else %}
+            <a href="/feed/vincular_tag/{{ feed.id }}/{{ tag.id }}" >
+                <span class="btn btn-secondary badge">Adicionar</span>
+            </a>
+        {% endif %}
+    {% endif %}
+
+</div>

@@ -11,3 +11,4 @@ secret_key.txt
 /removevarambient.sh
 /varambient.sh
 /core/templates/estrutura/estatico_teste.html
+/web_api_SARSS/settings.py

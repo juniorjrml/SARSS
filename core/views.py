@@ -1,16 +1,59 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, Http404
+from django.http import Http404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
-#from google.oauth2 import id_token
-#from google.auth.transport import requests
-
-from .construtor_feed_rss import monta_feed,extrai_noticias
+from .construtor_feed_rss import monta_feed, extrai_noticias
 from .form_feed import FeedForm
 from .form_tag import tagForm
 from .models import User, Tag
 from .models import Feed
 from django.contrib import messages
+
+abcdario = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+
+def pesquisa_tags(tag):
+    tags = Tag.objects.all().filter(title__icontains=tag)
+    if tags != Tag.objects.none():
+        return tags
+    return None
+
+
+def pesquisa_tags_iniciadas_em(inicio):
+    tags = Tag.objects.all().filter(title__istartswith=inicio)
+    if tags != Tag.objects.none():
+        return tags
+    return None
+
+
+def excluir_tags_da_pesquisa_iniciadas_em(inicio, selecao):
+     sel = selecao.exclude(title__istartswith=inicio)
+     if sel != Tag.objects.none():
+         return sel
+     return None
+
+
+def buscar_tags():
+    tags = Tag.objects.all()
+    if tags != Tag.objects.none():
+        return tags
+    return None
+
+
+def busca_tag(tag_id):
+    tag = Tag.objects.all().get(id=tag_id)
+    if tag != Tag.objects.none():
+        return tag
+    else:
+        return None
+
+
+def busca_feed(feed_id):
+    feed = Feed.objects.all().get(id=feed_id)
+    if feed != Feed.objects.none():
+        return feed
+    else:
+        return None
+
 
 def busca_usuario(user_id):
     usuario = User.objects.all().get(id=user_id)
@@ -19,12 +62,6 @@ def busca_usuario(user_id):
     else:
         return None
 
-def busca_feed(feed_id):
-    feed = Feed.objects.all().get(id=feed_id)
-    if feed != Feed.objects.none():
-        return feed
-    else:
-        return None
 
 def busca_usuario_nome(user_name):
     usuario = User.objects.all().filter(username=user_name).first()
@@ -47,10 +84,44 @@ def buscar_feeds_usuario(user_id, autorizado=True):
         return None
 
 
+def registra_usuario(request):
+    dados = {}
+    if request.GET:
+        return render(request, 'register.html', dados)
+    elif request.POST:
+        user = User.objects.create_user(request.POST.get('username'),
+                                        request.POST.get('email'),
+                                        request.POST.get('password'))
+        dados['form'] = user
+        return redirect("/")
+    else:
+        return render(request, 'register.html', dados)
+
+
+def submit_login(request):
+    if request.POST:
+        nome = request.POST.get('usuario')
+        senha = request.POST.get('senha')
+        usuario = authenticate(username=nome, password=senha)
+        if usuario:
+            login(request, usuario)
+        else:
+            messages.error(request, "Usuario ou Senha Invalidos")  # retorna em caso da autenticação falhar
+    return redirect('/')
+
+
+def login_usuario(request):
+    return render(request, 'login.html')
+
+
+def logout_user(request):
+    logout(request)
+    return redirect('/')
+
+
 @login_required(login_url='/login/')
 def home(request):
-    dados = {}
-    dados["feeds"] = buscar_feeds_usuario(request.user.id)
+    dados = {"feeds": buscar_feeds_usuario(request.user.id)}
 
     return render(request, 'home.html', dados)
 
@@ -78,18 +149,20 @@ def resgistra_feed(request):
     else:
         return render(request, 'register_feed.html', dados)
 
+
 @login_required(login_url='/login/')
 def resgistra_tag(request):
     user = request.user
     form = tagForm()
-    dados = {'form': form}
-    dados['tags'] = Tag.objects.all()
+    dados = {'form': form, 'tags': Tag.objects.all()}
+
     if user.is_staff:
         if request.GET:
             return render(request, 'register_tag.html', dados)
         elif request.POST:
             title = request.POST.get('title')
-            Tag.objects.create(title=title).save()
+            tag = Tag.objects.create(title=title)
+            tag.save()
 
             return redirect("/")
         else:
@@ -111,6 +184,7 @@ def delete_feed(request, id_feed):
         raise Http404()
 
     return redirect('/')
+
 
 @login_required(login_url='/login/')
 def feed_privado(request, id_feed):
@@ -147,6 +221,73 @@ def visualizar_feed(request, id_feed):
 
 
 @login_required(login_url='/login/')
+def vincular_tags(request, id_feed):
+    usuario = request.user
+    dados = {}
+    feed = busca_feed(id_feed)
+    if feed:
+        if usuario == feed.usuario:
+            dados['feed'] = feed
+            dados['categorias'] = {}
+            tags_complementar = Tag.objects.all()
+            for letra in abcdario:
+                tags = pesquisa_tags_iniciadas_em(letra)
+                if tags:
+                    dados['categorias'][letra] = tags
+                    tags_complementar = excluir_tags_da_pesquisa_iniciadas_em(letra, tags_complementar)
+
+            if tags_complementar:
+                dados['categorias']["Outros"] = tags_complementar
+
+    return render(request, 'vincular_tags.html', dados)
+
+
+@login_required(login_url='/login/')
+def vincular_tag(request, id_feed, id_tag):
+    usuario = request.user
+    feed = busca_feed(id_feed)
+    tag = busca_tag(id_tag)
+    if feed and tag:
+        if feed.usuario == usuario:
+            if tag not in feed.tags.all():
+                feed.tags.add(tag)
+        return redirect("/feed/vincular_tags/"+str(id_feed))
+    else:
+        raise Http404
+
+    return render(request, 'vincular_tags.html')
+
+@login_required(login_url='/login/')
+def remover_vinculo_tag(request, id_feed, id_tag):
+    usuario = request.user
+    feed = busca_feed(id_feed)
+    tag = busca_tag(id_tag)
+    if feed and tag:
+        if feed.usuario == usuario:
+            if tag in feed.tags.all():
+                feed.tags.remove(tag)
+        return redirect("/")
+    else:
+        raise Http404
+
+    return render(request, 'vincular_tags.html')
+
+
+def visualizar_tags(request):
+    dados = {}
+    tags = buscar_tags()
+    dados['tags'] = tags
+    return render(request, 'vizualizar_tags.html', dados)
+
+def pesquisar_tags(request, busca: str):
+    tags = pesquisa_tags(busca)
+    if tags:
+        dados = {'tags': tags}
+    else:
+        dados = {}
+    return render(request, 'vizualizar_tags.html', dados)
+
+@login_required(login_url='/login/')
 def visualizar_user(request, nickname):
     usuario = busca_usuario_nome(nickname)
     dados = {}
@@ -164,38 +305,3 @@ def visualizar_user(request, nickname):
     else:
         raise Http404
     return render(request, 'visualizar_usuario.html', dados)
-
-
-def registra_usuario(request):
-    dados = {}
-    if request.GET:
-        return render(request, 'register.html', dados)
-    elif request.POST:
-        user = User.objects.create_user(request.POST.get('username'),
-                                                 request.POST.get('email'),
-                                                 request.POST.get('password'))
-        dados['form'] = user
-        return redirect("/")
-    else:
-        return render(request, 'register.html', dados)
-
-
-def submit_login(request):
-    if request.POST:
-        nome = request.POST.get('usuario')
-        senha = request.POST.get('senha')
-        usuario = authenticate(username=nome, password=senha)
-        if usuario:
-            login(request, usuario)
-        else:
-            messages.error(request, "Usuario ou Senha Invalidos")  # retorna em caso da autenticação falhar
-    return redirect('/')
-
-
-def login_usuario(request):
-    return render(request, 'login.html')
-
-
-def logout_user(request):
-    logout(request)
-    return redirect('/')

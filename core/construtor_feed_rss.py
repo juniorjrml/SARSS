@@ -10,19 +10,23 @@ def monta_feed(link):
     feed = {}
     campos_noticia = ['title', 'summary', 'link']
     NewsFeed = feedparser.parse(link)
-
     feed["title"] = NewsFeed['feed']['title']
-    feed["subtitle"] = NewsFeed['feed']['subtitle']
-    feed["link"] = NewsFeed['href']
-    feed["entries"] =[]
-    print(NewsFeed.entries[0].keys())
-    for entry in NewsFeed.entries:
+    try:
+        feed["subtitle"] = NewsFeed['feed']['subtitle']
+    except KeyError:
+        feed["subtitle"] = NewsFeed['feed']['title']
 
+    feed["link"] = NewsFeed['href']
+    feed["entries"] = []
+    for entry in NewsFeed.entries:
         entrada = {}
         for campo in campos_noticia:
             entrada[campo] = entry[campo]
 
+
         feed["entries"].append(entrada)
+
+    #print(NewsFeed.entries[0].keys())
     return feed
 
 def extrai_noticias(link):
@@ -30,6 +34,14 @@ def extrai_noticias(link):
     return NewsFeed.entries
 
 if __name__ == '__main__':
-    feed = monta_feed("http://g1.globo.com/dynamo/educacao/rss2.xml")
+    feed = monta_feed("http://www.bbc.co.uk/portuguese/index.xml")
+    feed = monta_feed("https://www.gazetadopovo.com.br/feed/rss/mundo.xml")
+    feed = monta_feed("http://g1.globo.com/dynamo/rss2.xml")
+    feed = monta_feed("http://noticias.gov.br/noticias/rss")
+    feed = monta_feed("https://www.cepea.esalq.usp.br/rss.php")
+    feed = monta_feed("https://agencia.fapesp.br/rss/")
+    feed = monta_feed("https://www.wired.com/feed/rss")
+    feed = monta_feed("https://www.infomoney.com.br/feed")
+    feed = monta_feed("http://noticias.r7.com/carreiras/feed.xml")
     entries = feed["entries"]
-    print(entries[0].keys())
+    #print(entries)
