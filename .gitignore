@@ -2,13 +2,6 @@
 */__pycache__/*
 .idea
 *__pycache__*
-secret_key.txt
-/web_api_SARSS/usuario.txt
-/web_api_SARSS/senha.txt
 /.env
-/senha.txt
-/usuario.txt
-/removevarambient.sh
-/varambient.sh
 /core/templates/estrutura/estatico_teste.html
 /web_api_SARSS/settings.py
