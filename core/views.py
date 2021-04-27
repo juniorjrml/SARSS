@@ -277,7 +277,7 @@ def visualizar_tags(request):
     dados = {}
     tags = buscar_tags()
     dados['tags'] = tags
-    return render(request, 'vizualizar_tags.html', dados)
+    return render(request, 'visualizar_tags.html', dados)
 
 def pesquisar_tags(request, busca: str):
     tags = pesquisa_tags(busca)
@@ -285,7 +285,7 @@ def pesquisar_tags(request, busca: str):
         dados = {'tags': tags}
     else:
         dados = {}
-    return render(request, 'vizualizar_tags.html', dados)
+    return render(request, 'visualizar_tags.html', dados)
 
 @login_required(login_url='/login/')
 def visualizar_user(request, nickname):
